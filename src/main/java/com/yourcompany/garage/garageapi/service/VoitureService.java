@@ -28,32 +28,6 @@ public interface VoitureService {
 
     List<Voiture> getVoituresByTypeCarrosserie(String typeCarrosserie);
 
-    /*
-    List<Voiture> getVoituresByCouleur(String couleur);
-
-    List<Voiture> getVoituresByTypeCombustible(String typeCombustible);
-
-    List<Voiture> getVoituresByTypeBoiteVitesse(String typeBoiteVitesse);
-
-    List<Voiture> getVoituresByEnVente(Boolean enVente);
-
-    List<Voiture> getVoituresByNeuf(Boolean neuf);
-
-    List<Voiture> getVoituresByProprietaireNoAVS(Long noAVS);
-
-    List<Voiture> getVoituresByPrixGreaterThan(BigDecimal prix);
-
-    List<Voiture> getVoituresByPrixLessThan(BigDecimal prix);
-
-    List<Voiture> getVoituresByDateFabricationBetween(LocalDate startDate, LocalDate endDate);
-
-    List<Voiture> getVoituresByNombreKmGreaterThan(Integer nombreKm);
-
-    List<Voiture> getVoituresByCouleurAndEnVente(String couleur, Boolean enVente);
-
-    List<Voiture> getVoituresByTypeCarrosserieAndTypeCombustible(String typeCarrosserie, String typeCombustible);
-
-     */
     List<Voiture> searchVoitures(
             Optional<String> marque,
             Optional<TypeCarrosserie> typeCarrosserie,
