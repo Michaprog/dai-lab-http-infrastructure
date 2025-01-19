@@ -125,7 +125,10 @@
         <div class="card-body">
             <form id="searchByCarIDForm" class="mb-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="carID" placeholder="Enter Car ID (Numero Chassis)" required>
+                    <input list="carIDList" class="form-control" id="carID" placeholder="Enter or Select Car ID (Numero Chassis)" required>
+                    <datalist id="carIDList">
+                        <!-- Options will be dynamically populated -->
+                    </datalist>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
             </form>
@@ -227,10 +230,37 @@
         }
     }
 
+    // Populate the datalist for car ID suggestions with details
+    async function populateCarDatalistWithDetails() {
+        const carDatalist = document.getElementById("carIDList"); // Target the datalist element
+
+        try {
+            // Fetch car data
+            const response = await fetch('/api/voitures');
+            const voitures = await response.json();
+
+            // Clear existing options in the datalist
+            carDatalist.innerHTML = "";
+
+            // Populate the datalist with voiture data
+            voitures.forEach(voiture => {
+                const option = document.createElement("option");
+                option.value = voiture.numeroChassis; // Set the car ID as the value
+                option.textContent = `${voiture.numeroChassis} - ${voiture.marque} (${voiture.typeCarrosserie})`; // Display detailed info
+                carDatalist.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error populating car datalist:", error);
+            alert("Failed to load car data for suggestions.");
+        }
+    }
+
+
 
     // Call the function on page load
     populateCarDropdown();
     populateVilleDropdown();
+    populateCarDatalistWithDetails();
 
     document.getElementById("fetchReparationsBtn").addEventListener("click", fetchAndDisplayAllReparations);
 
