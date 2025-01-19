@@ -214,25 +214,40 @@ public class VoitureServiceImpl implements VoitureService {
 
     @Override
     public void insertVoiture(Voiture voiture) {
-        voitureRepository.insertVoiture(voiture.getNumeroChassis(),
+        if (voiture.getProprietaire() == null) {
+            throw new IllegalArgumentException("Le propriétaire ne peut pas être null");
+        }
+
+        // Conversion des types primitifs en objets
+        Integer nombrePlaces = voiture.getNombrePlaces();
+        Integer nombrePortes = voiture.getNombrePortes();
+        Integer puissance = voiture.getPuissance();
+        Integer nombreKm = voiture.getNombreKm();
+        Boolean neuf = voiture.getNeuf();
+        Boolean garantie = voiture.getGarantie();
+        Boolean enVente = voiture.getEnVente();
+
+        voitureRepository.insertVoiture(
+                voiture.getNumeroChassis(),
                 voiture.getMarque(),
                 voiture.getTypeCarrosserie().toString(),
                 voiture.getCouleur().toString(),
                 voiture.getDateFabrication(),
-                voiture.getNombrePlaces(),
+                nombrePlaces,
                 voiture.getPrix(),
-                voiture.getNombrePortes(),
-                voiture.getPuissance(),
+                nombrePortes,
+                puissance,
                 voiture.getDescriptionOptions(),
                 voiture.getDateExpertise(),
                 voiture.getTypeCombustible().toString(),
-                voiture.getNombreKm(),
+                nombreKm,
                 voiture.getTypeBoiteVitesse().toString(),
                 voiture.getConsommation(),
-                voiture.getNeuf(),
-                voiture.getGarantie(),
+                neuf,
+                garantie,
                 voiture.getDateFinGarantie(),
-                voiture.getEnVente(),
-                voiture.getProprietaire().getNoAVS());
+                enVente,
+                voiture.getProprietaire().getNoAVS()
+        );
     }
 }
